@@ -3,6 +3,7 @@ package net.escendia.gui.controll;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.gson.JsonObject;
+import net.escendia.gui.EscendiaGUIPlugin;
 import net.escendia.gui.model.components.Element;
 import net.escendia.gui.model.gui.GeneralGUIData;
 import net.escendia.gui.model.logger.EscendiaLogger;
@@ -46,26 +47,59 @@ public class GUIService {
     }
 
 
+    /**
+     * Adds a element and sends it to the client
+     * @param playerUUID
+     * @param element
+     */
     public void addElement(UUID playerUUID, Element element) {
         getEscendiaGui(playerUUID).addElement(element);
     }
 
+    /**
+     * Removes a element and sends it to the client
+     * @param playerUUID
+     * @param element
+     */
     public void removeElement(UUID playerUUID, Element element) {
         getEscendiaGui(playerUUID).remove(element);
     }
 
+    /**
+     * Update Elements from the current gui and sends a packet to the client
+     * @param playerUUID
+     * @param element
+     */
     public void updateElement(UUID playerUUID, Element element) {
         getEscendiaGui(playerUUID).update(element);
     }
 
+    /**
+     * Get the current GUI.
+     * If there is no current GUI a new one will be created and added to the service.
+     * @param playerUUID
+     * @return EscendiaGui
+     */
     public EscendiaGui getEscendiaGui(UUID playerUUID) {
-        return guiMap.get(playerUUID);
+        if(guiMap.containsKey(playerUUID))return guiMap.get(playerUUID);
+        else return createGUI(playerUUID);
     }
 
-    public void createGUI(UUID uuid) {
-        this.guiMap.put(uuid, new EscendiaGui(uuid));
+    /**
+     * Creates a new GUI by a player uuid
+     * @param uuid
+     * @return
+     */
+    public EscendiaGui createGUI(UUID uuid) {
+        EscendiaGui escendiaGUI = new EscendiaGui(uuid);
+        this.guiMap.put(uuid, escendiaGUI);
+        return escendiaGUI;
     }
 
+    /**
+     * Removes the current gui.
+     * @param uuid
+     */
     public void removeGUI(UUID uuid) {
         this.guiMap.remove(uuid);
     }

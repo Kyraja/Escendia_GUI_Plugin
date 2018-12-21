@@ -63,15 +63,29 @@ public class EscendiaGui {
         InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new Add(element));
     }
 
+    /**
+     * removes the current gui
+     * @param element
+     */
     public void remove(Element element){
-        if(elementList.get(element)!=null){
-            elementList.remove(element);
-            InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new Remove(element));
+        if(elementList.get(element)==null){
+            removeElement(element);
         }
+        InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new Remove(element));
     }
 
+    /**
+     * Updates a element of the gui and sends it to the client.
+     * If the element is new it will be send as "Add" and not as "updated"
+     * @param element
+     */
     public void update(Element element){
-        InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new Update(element));
+        if(getElement(element.getElementUUID())!=null){
+            updateElement(element);
+            InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new Update(element));
+        }else {
+            addElement(element);
+        }
     }
 
 
@@ -94,6 +108,11 @@ public class EscendiaGui {
         ------------- Updated Methods ------------
     */
 
+    /**
+     * Get an element from the elementList or the childrenelement of an element
+     * @param elementUUID
+     * @return
+     */
     public Element getElement(UUID elementUUID) {
 
         for(UUID element : elementList.keySet()){
@@ -105,6 +124,36 @@ public class EscendiaGui {
             }
         }
         return null;
+    }
+
+    /**
+     * Removes the old element add puts the new one to the list or childrenlist
+     * @param element
+     */
+    public void updateElement(Element element){
+        for(UUID elementUUID : elementList.keySet()){
+            if(element.getElementUUID() == elementUUID){
+                elementList.remove(element);
+                elementList.put(element.getElementUUID(), element);
+            }else{
+               elementList.get(element).updateChildrenElement(element);
+            }
+        }
+    }
+
+
+    /**
+     * Removes the old element add puts the new one to the list or childrenlist
+     * @param element
+     */
+    public void removeElement(Element element){
+        for(UUID elementUUID : elementList.keySet()){
+            if(element.getElementUUID() == elementUUID){
+                elementList.remove(element);
+            }else{
+                elementList.get(element).removeChildrenElement(element);
+            }
+        }
     }
 
 }

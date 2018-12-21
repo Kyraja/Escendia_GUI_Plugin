@@ -65,6 +65,11 @@ public class Element implements FactoryElement<Element> {
         return this.elementStatus;
     }
 
+    /**
+     * Get a children element (recursive)
+     * @param elementUUID
+     * @return
+     */
     public Element getChildrenElement(UUID elementUUID) {
         for(UUID element : childrenElements.keySet()){
             if(element == elementUUID){
@@ -75,6 +80,37 @@ public class Element implements FactoryElement<Element> {
             }
         }
         return null;
+    }
+
+    /**
+     * Updates a children element (recursive)
+     * @param element
+     */
+    public void updateChildrenElement(Element element){
+        for(UUID elementUUID : childrenElements.keySet()) {
+            if (element.getElementUUID() == elementUUID) {
+                childrenElements.remove(element);
+                childrenElements.put(element.getElementUUID(), element);
+                return;
+            } else {
+                childrenElements.get(element).updateChildrenElement(element);
+            }
+        }
+    }
+
+    /**
+     * Removes the children element (recursive)
+     * @param element
+     */
+    public void removeChildrenElement(Element element) {
+        for(UUID elementUUID : childrenElements.keySet()) {
+            if (element.getElementUUID() == elementUUID) {
+                childrenElements.remove(element);
+                return;
+            } else {
+                childrenElements.get(element).removeChildrenElement(element);
+            }
+        }
     }
 
     public String getElementClassAsString() {
