@@ -1,0 +1,64 @@
+plugins {
+    id 'org.spongepowered.plugin' version '0.8.1'
+}
+group = pluginGroup
+version = pluginVersion
+
+repositories{
+    maven { url = "http://repo.spongepowered.org/maven" }
+    maven { url = "https://jitpack.io" }
+}
+
+//Add "embedded" configuration
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+
+dependencies {
+    // you may put jars on which you depend on in ./libs
+    // or you may define them like so..
+    //compile "some.group:artifact:version:classifier"
+    //compile "some.group:artifact:version"
+
+    // real examples
+    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+
+    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
+    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
+    // except that these dependencies get remapped to your current MCP mappings
+    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // for more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    embed 'com.github.Kyraja:Escendia_IOC:0.1.0'
+    embed 'org.slick2d:slick2d-core:1.0.1'
+
+    compile 'org.slick2d:slick2d-core:1.0.1'
+    compile 'com.github.Kyraja:Escendia_IOC:0.1.0'
+    compile 'org.spongepowered:spongeapi:7.1.0-20180104.092557-3'
+
+}
+
+
+
+
+
+//Add dependencies to the JAR
+jar {
+
+    from configurations.embed.collect {
+        exclude '.classpath'
+        exclude '.project'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        it.isDirectory() ? it : zipTree(it)
+    }
+}
+
+sponge.plugin.id = pluginId
