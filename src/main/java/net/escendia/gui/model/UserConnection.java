@@ -7,9 +7,8 @@ import net.escendia.gui.controll.GUIService;
 import net.escendia.gui.controll.PacketService;
 import net.escendia.gui.controll.PlayerService;
 import net.escendia.gui.model.logger.EscendiaLogger;
-import net.escendia.gui.model.network.out.connection.Init;
-import net.escendia.gui.model.network.out.connection.PacketConnection;
 import net.escendia.gui.model.network.out.PacketOut;
+import net.escendia.gui.model.network.out.connection.Init;
 import net.escendia.ioc.InversionOfControl;
 
 import java.io.BufferedReader;
