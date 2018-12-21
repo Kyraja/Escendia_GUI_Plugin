@@ -96,6 +96,13 @@ public class Element implements FactoryElement<Element> {
     }
 
 
+    /**
+     * Sets a new ElementUUID to the element
+     * @param elementUUID
+     */
+    public void setElementUUID(UUID elementUUID) {
+        this.elementUUID = elementUUID;
+    }
     /*
     ---------- Meta Methods --------------
     */
@@ -127,6 +134,5 @@ public class Element implements FactoryElement<Element> {
     public void update(UUID playerUUID){
         InversionOfControl.get().build(GUIService.class).updateElement(playerUUID, this);
     }
-
 
 }

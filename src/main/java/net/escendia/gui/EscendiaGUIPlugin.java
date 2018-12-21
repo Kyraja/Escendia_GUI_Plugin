@@ -14,6 +14,7 @@ import net.escendia.ioc.Inject;
 import net.escendia.ioc.InversionOfControl;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
@@ -21,6 +22,8 @@ import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.text.Text;
+
+import java.nio.file.Path;
 
 @Plugin(
         id = "escendiagui",
@@ -35,6 +38,9 @@ public class EscendiaGUIPlugin {
         @Inject
         private EscendiaLogger logger;
 
+        @com.google.inject.Inject
+        @DefaultConfig(sharedRoot = true)
+        private Path defaultConfig;
 
         @Listener
         public void preinit(GamePreInitializationEvent e) {
@@ -83,4 +89,19 @@ public class EscendiaGUIPlugin {
                logger.info("GamePostInitializationEvent() Escendia - GUI - Plugin loaded...");
         }
 
+        /**
+         * Default config
+         * @return
+         */
+        public Path getDefaultConfig() {
+                return defaultConfig;
+        }
+
+        /**
+         * returnts this plugin id
+         * @return
+         */
+        public String getPluginID() {
+                return "escendiagui";
+        }
 }

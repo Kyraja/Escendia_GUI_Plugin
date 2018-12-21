@@ -1,15 +1,19 @@
 package net.escendia.gui.controll;
 
+import net.escendia.gui.EscendiaGUIPlugin;
+import net.escendia.gui.model.logger.EscendiaLogger;
+import net.escendia.ioc.InversionOfControl;
 import net.escendia.ioc.Singleton;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Singleton
 public class FileService {
@@ -27,13 +31,16 @@ public class FileService {
 
 
     public InputStream getFile(String url) throws Exception {
+        String path = getConfigDir();
+
+
         String fileName = generateFileName(url);
-        File file = new File(Paths.get("").toAbsolutePath().toString() + "/mods/Escendia_GUI_Mod/resources/"+url);
+        File file = new File(path+File.separator+url);
 
         if(file.exists())
             return new FileInputStream(file);
         else{
-            file = new File(Paths.get("").toAbsolutePath().toString() + "/mods/Escendia_GUI_Mod/resources/"+fileName);
+            file = new File(path+File.separator+fileName);
             ByteArrayInputStream bais = downloadFileByUrl(url);
             FileOutputStream fos;
 
@@ -90,5 +97,43 @@ public class FileService {
             name += array[i]+"";
 
         return name;
+    }
+
+    public String getConfigDir() {
+        String path = InversionOfControl.get().build(EscendiaGUIPlugin.class).getDefaultConfig().getParent().toString();
+        File tempdir = new File(path + File.separator + InversionOfControl.get().build(EscendiaGUIPlugin.class).getPluginID());
+        if(!tempdir.exists())tempdir.mkdirs();
+        return tempdir.getAbsolutePath();
+    }
+
+    public void writeFile(String filePath, String textToWrite) {
+        Path path = Paths.get(filePath);
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File toWrite = new File(filePath);
+
+        if(!toWrite.exists()) {
+            try {
+                Files.createFile(path);
+                FileOutputStream os= null;
+                try {
+
+                    os = new FileOutputStream(toWrite);
+                    BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(os));
+                    bw.append(textToWrite);
+                    bw.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
     }
 }

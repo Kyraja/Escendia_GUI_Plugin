@@ -1,9 +1,16 @@
 package net.escendia.gui.model.network.out.connection;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
 import com.google.gson.JsonObject;
 import net.escendia.gui.GlobalScope;
+import net.escendia.gui.controll.FileService;
 import net.escendia.gui.model.gui.GeneralGUIData;
+import net.escendia.ioc.InversionOfControl;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
@@ -13,13 +20,13 @@ public class Init extends PacketConnection {
 
     public Init() {
         super(new JsonObject());
-        GeneralGUIData generalGUIData = new GeneralGUIData();
-        HashMap<String, String> images = new HashMap<>();
-        //TODO Configfile for inputdata
-        images.put("ethyronimage.png", "http://ethyron.net/images/logo.png");
-        images.put("button1.png", "http://cdn.pixabay.com/photo/2016/01/23/11/41/button-1157299_960_720.png");
-        generalGUIData.setImages(images);
-        getJsonObject().add(GlobalScope.INITDATA, generalGUIData.toJson());
+        FileService fileService = InversionOfControl.get().build(FileService.class);
+        try {
+            InputStream stream = fileService.getFile("GeneralData.json");
+            getJsonObject().add(GlobalScope.INITDATA, new GeneralGUIData().fromJson(CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8))).toJson());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
