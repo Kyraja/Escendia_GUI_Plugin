@@ -44,8 +44,9 @@ public class EscendiaGUIPlugin {
 
         @Listener
         public void preinit(GamePreInitializationEvent e) {
-                this.logger = new EscendiaLogger("Escendia GUI Plugin", Level.TRACE);
-
+                this.logger = new EscendiaLogger();
+                this.logger.setTag("Escendia GUI Plugin");
+                this.logger.setLevel(Level.TRACE);
                 registerIOC();
                 registerCommand();
         }

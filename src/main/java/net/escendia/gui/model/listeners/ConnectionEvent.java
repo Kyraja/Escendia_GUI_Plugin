@@ -11,20 +11,12 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 
 import java.util.UUID;
 
-public abstract class GuiEvents extends AbstractEvent {
+public abstract class ConnectionEvent extends AbstractEvent {
 
-    private EscendiaLogger logger;
-    private Element element;
     private UUID playerUUID;
 
-    public GuiEvents(UUID playerUUID, Element element){
-        logger = InversionOfControl.get().build(EscendiaLogger.class);
+    public ConnectionEvent(UUID playerUUID){
         this.playerUUID = playerUUID;
-        this.element = element;
-    }
-
-    public Element getElement() {
-        return element;
     }
 
     public UUID getPlayerUUID() {
@@ -36,6 +28,8 @@ public abstract class GuiEvents extends AbstractEvent {
         EventContext context = EventContext.builder()
                 .add(EventContextKeys.PLAYER, Sponge.getServer().getPlayer(playerUUID).get())
                 .build();
-        return Cause.builder().append(playerUUID).append(element).build(context);
+        return Cause.builder().append(playerUUID).build(context);
+
     }
+
 }

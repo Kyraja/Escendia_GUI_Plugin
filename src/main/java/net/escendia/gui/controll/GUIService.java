@@ -2,8 +2,6 @@ package net.escendia.gui.controll;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
-import com.google.gson.JsonObject;
-import net.escendia.gui.EscendiaGUIPlugin;
 import net.escendia.gui.model.components.Element;
 import net.escendia.gui.model.gui.GeneralGUIData;
 import net.escendia.gui.model.logger.EscendiaLogger;
@@ -13,7 +11,6 @@ import net.escendia.ioc.InversionOfControl;
 import net.escendia.ioc.Singleton;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;

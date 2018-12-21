@@ -59,7 +59,6 @@ public class UserConnection implements Runnable{
         this.setUuid(UUID.fromString(playerUUID));
         InversionOfControl.get().build(PlayerService.class).add(this);
         send(new Init());
-        InversionOfControl.get().build(GUIService.class).createGUI(UUID.fromString(playerUUID));
     }
 
 

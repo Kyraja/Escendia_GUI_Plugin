@@ -27,12 +27,6 @@ public class EscendiaLogger {
 
     public EscendiaLogger(){}
 
-    public EscendiaLogger(String tag, Level level){
-        this.tag = tag;
-        this.level = level;
-    }
-
-
     public void error(String m) {
         if (Level.ERROR.compareTo(level) <= 0) {
             format("ERROR", m);
