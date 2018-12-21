@@ -526,7 +526,7 @@ public final class GifDecoder {
         final int fileSize = in.length;
         final int minCodeSize = in[i++] & 0xFF; // Read code size, go to block
         final int clearCode = 1 << minCodeSize; // CLEAR = 2^minCodeSize
-        fr.firstCodeSize = minCodeSize + 1; // Add 1 bit for CLEAR and EOI
+        fr.firstCodeSize = minCodeSize + 1; // Added 1 bit for CLEAR and EOI
         fr.clearCode = clearCode;
         fr.endOfInfoCode = clearCode + 1;
         final int imgDataSize = readImgDataSize(in, i);

@@ -118,12 +118,12 @@ public class PlayerService {
     }
 
     public void remove(UserConnection connection){
-        logger.info("Remove Connection for " + connection.getUuid());
+        logger.info("Removed Connection for " + connection.getUuid());
         userConnections.remove(connection.getUuid());
     }
 
     public void add(UserConnection connection){
-        logger.info("Add Connection for " + connection.getUuid());
+        logger.info("Added Connection for " + connection.getUuid());
         userConnections.put(connection.getUuid(), connection);
     }
 

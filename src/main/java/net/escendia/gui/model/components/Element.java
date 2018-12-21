@@ -3,14 +3,12 @@ package net.escendia.gui.model.components;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import net.escendia.gui.controll.GUIService;
-import net.escendia.gui.controll.PacketService;
 import net.escendia.gui.model.factories.ElementDeserializer;
 import net.escendia.gui.model.factories.FactoryElement;
 import net.escendia.gui.model.factories.FormDeserializer;
 import net.escendia.gui.model.form.Form;
 import net.escendia.gui.model.form.style.impl.RectangleStandard;
 import net.escendia.gui.model.gui.Visibility;
-import net.escendia.gui.model.network.out.PacketElement;
 import net.escendia.ioc.InversionOfControl;
 
 import java.util.HashMap;

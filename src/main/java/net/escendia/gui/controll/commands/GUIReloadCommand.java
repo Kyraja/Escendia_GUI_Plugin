@@ -1,7 +1,8 @@
 package net.escendia.gui.controll.commands;
 
 import net.escendia.gui.controll.PacketService;
-import net.escendia.gui.model.network.out.PacketConnection;
+import net.escendia.gui.model.network.out.connection.Init;
+import net.escendia.gui.model.network.out.connection.PacketConnection;
 import net.escendia.ioc.InversionOfControl;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -22,7 +23,7 @@ public class GUIReloadCommand implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        if(src instanceof Player)InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(((Player)src).getPlayer().get().getUniqueId(), new PacketConnection.Init());
+        if(src instanceof Player)InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(((Player)src).getPlayer().get().getUniqueId(), new Init());
         return null;
     }
 

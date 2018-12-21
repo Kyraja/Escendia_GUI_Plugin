@@ -7,10 +7,10 @@ import net.escendia.gui.controll.GUIService;
 import net.escendia.gui.controll.PacketService;
 import net.escendia.gui.controll.PlayerService;
 import net.escendia.gui.model.logger.EscendiaLogger;
-import net.escendia.gui.model.network.out.PacketConnection;
+import net.escendia.gui.model.network.out.connection.Init;
+import net.escendia.gui.model.network.out.connection.PacketConnection;
 import net.escendia.gui.model.network.out.PacketOut;
 import net.escendia.ioc.InversionOfControl;
-import org.spongepowered.api.entity.living.player.Player;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -56,10 +56,10 @@ public class UserConnection implements Runnable{
     }
 
     public void add(String playerUUID) {
-        logger.info("SetUUID and Add for " + playerUUID);
+        logger.info("SetUUID and Added for " + playerUUID);
         this.setUuid(UUID.fromString(playerUUID));
         InversionOfControl.get().build(PlayerService.class).add(this);
-        send(new PacketConnection.Init());
+        send(new Init());
         InversionOfControl.get().build(GUIService.class).createGUI(UUID.fromString(playerUUID));
     }
 
@@ -93,7 +93,7 @@ public class UserConnection implements Runnable{
 
                 if(getUuid()==null){
                     JsonObject body = jsonObject.getAsJsonObject(GlobalScope.BODY);
-                    logger.info("Add Connection first read: " + body.get(GlobalScope.UUID).getAsString());
+                    logger.info("Added Connection first read: " + body.get(GlobalScope.UUID).getAsString());
 
                     add(body.get(GlobalScope.UUID).getAsString());
                 }else{

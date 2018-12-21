@@ -6,11 +6,12 @@ import net.escendia.gui.controll.FileService;
 import net.escendia.gui.controll.PacketService;
 import net.escendia.gui.model.components.Element;
 import net.escendia.gui.model.components.impl.Progressbar;
-import net.escendia.gui.model.form.Form;
 import net.escendia.gui.model.form.style.FormStyle;
 import net.escendia.gui.model.form.style.impl.RectangleStandard;
-import net.escendia.gui.model.network.in.PacketGUI;
-import net.escendia.gui.model.network.out.PacketElement;
+import net.escendia.gui.model.network.out.gui.Create;
+import net.escendia.gui.model.network.out.gui.Delete;
+import net.escendia.gui.model.network.out.gui.PacketGUI;
+import net.escendia.gui.model.network.out.elements.Add;
 import net.escendia.ioc.InversionOfControl;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -69,9 +70,9 @@ public abstract class GUITestCommand implements CommandExecutor {
 
 
 
-                    packetService.sendPacketToPlayer(player, new PacketGUI.Delete());
-                    packetService.sendPacketToPlayer(player, new PacketGUI.Create());
-                    packetService.sendPacketToPlayer(player, new PacketElement.Added(new Element().fromJson(json)));
+                    packetService.sendPacketToPlayer(player, new Delete());
+                    packetService.sendPacketToPlayer(player, new Create());
+                    packetService.sendPacketToPlayer(player, new Add(new Element().fromJson(json)));
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -118,9 +119,9 @@ public abstract class GUITestCommand implements CommandExecutor {
             vertical.setProgressForm(progressForm);
 
 
-            packetService.sendPacketToPlayer(player, new PacketGUI.Delete());
-            packetService.sendPacketToPlayer(player, new PacketGUI.Create());
-            packetService.sendPacketToPlayer(player, new PacketElement.Added(vertical));
+            packetService.sendPacketToPlayer(player, new Delete());
+            packetService.sendPacketToPlayer(player, new Create());
+            packetService.sendPacketToPlayer(player, new Add(vertical));
 
 
             return CommandResult.success();

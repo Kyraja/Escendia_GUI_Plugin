@@ -1,27 +1,20 @@
 package net.escendia.gui.controll;
 
 import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
-import net.escendia.gui.EscendiaGUIPlugin;
 import net.escendia.gui.GlobalScope;
 import net.escendia.gui.model.UserConnection;
 import net.escendia.gui.model.logger.EscendiaLogger;
-import net.escendia.gui.model.network.Packet;
-import net.escendia.gui.model.network.in.PacketEvents;
+import net.escendia.gui.model.network.in.connection.Init;
+import net.escendia.gui.model.network.in.events.*;
+import net.escendia.gui.model.network.in.connection.PacketConnection;
 import net.escendia.gui.model.network.out.PacketOut;
 import net.escendia.ioc.Inject;
 import net.escendia.ioc.InversionOfControl;
 import net.escendia.ioc.Singleton;
-import org.spongepowered.api.Platform;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.network.*;
 
-import java.io.StringReader;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
 import java.util.UUID;
 
 @Singleton
@@ -62,50 +55,51 @@ public class PacketService{
         switch (id){
             //TODO Received Packages
             //TODO as event handling
+            //TODO All Events an added/removed etc events
             case GlobalScope.PACKET_CLIENT_CONNECTION_INIT:
-                new net.escendia.gui.model.network.in.PacketConnection.Init(uuid, body);
+                new Init(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONCLICK:
-                new PacketEvents.Post.OnClick(uuid, body);
+                new OnClick(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONMOUSELEAVE:
-                new PacketEvents.Post.OnMouseLeave(uuid, body);
+                new OnMouseLeave(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONMOUSEENTER:
-                new PacketEvents.Post.OnMouseEnter(uuid, body);
+                new OnMouseEnter(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONMOUSEBUTTONUP:
-                new PacketEvents.Post.OnMouseButtonUp(uuid, body);
+                new OnMouseButtonUp(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONMOUSEBUTTONDOWN:
-                new PacketEvents.Post.OnMouseButtonDown(uuid, body);
+                new OnMouseButtonDown(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONDOUBLECLICK:
-                new PacketEvents.Post.OnDoubleClick(uuid, body);
+                new OnDoubleClick(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONKEYPRESSED:
-                new PacketEvents.Post.OnKeyPressed(uuid, body);
+                new OnKeyPressed(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONINPUT:
-                new PacketEvents.Post.OnInput(uuid, body);
+                new OnInput(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONPASTE:
-                new PacketEvents.Post.OnPaste(uuid, body);
+                new OnPaste(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONCOPY:
-                new PacketEvents.Post.OnCopy(uuid, body);
+                new OnCopy(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONREMOVE:
-                new PacketEvents.Post.OnRemove(uuid, body);
+                new OnRemove(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONVALUECHANGE:
-                new PacketEvents.Post.OnValueChange(uuid, body);
+                new OnValueChange(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONFOCUS:
-                new PacketEvents.Post.OnFocus(uuid, body);
+                new OnFocus(uuid, body);
                 break;
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONBLUR:
-                new PacketEvents.Post.OnBlur(uuid, body);
+                new OnBlur(uuid, body);
                 break;
             default:
 

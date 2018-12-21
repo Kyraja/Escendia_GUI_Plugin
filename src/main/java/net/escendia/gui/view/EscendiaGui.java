@@ -2,7 +2,11 @@ package net.escendia.gui.view;
 
 import net.escendia.gui.controll.PacketService;
 import net.escendia.gui.model.components.Element;
-import net.escendia.gui.model.network.out.PacketElement;
+import net.escendia.gui.model.network.in.element.Added;
+import net.escendia.gui.model.network.out.elements.Add;
+import net.escendia.gui.model.network.out.elements.PacketElement;
+import net.escendia.gui.model.network.out.elements.Remove;
+import net.escendia.gui.model.network.out.elements.Update;
 import net.escendia.ioc.InversionOfControl;
 
 import java.util.HashMap;
@@ -56,18 +60,18 @@ public class EscendiaGui {
 
     public void addElement(Element element) {
         elementList.put(element.getElementUUID(), element);
-        InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new PacketElement.Added(element));
+        InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new Add(element));
     }
 
     public void remove(Element element){
         if(elementList.get(element)!=null){
             elementList.remove(element);
-            InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new PacketElement.Removed(element));
+            InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new Remove(element));
         }
     }
 
     public void update(Element element){
-        InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new PacketElement.Updated(element));
+        InversionOfControl.get().build(PacketService.class).sendPacketToPlayer(playerUUID, new Update(element));
     }
 
 
@@ -87,7 +91,7 @@ public class EscendiaGui {
         this.focusedElement = focusedElement;
     }
     /*
-        ------------- Update Methods ------------
+        ------------- Updated Methods ------------
     */
 
     public Element getElement(UUID elementUUID) {

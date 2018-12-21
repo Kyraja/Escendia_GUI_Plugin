@@ -1,7 +1,8 @@
 package net.escendia.gui.controll.commands;
 
 import net.escendia.gui.controll.PacketService;
-import net.escendia.gui.model.network.in.PacketGUI;
+import net.escendia.gui.model.network.out.gui.Delete;
+import net.escendia.gui.model.network.out.gui.PacketGUI;
 import net.escendia.ioc.InversionOfControl;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -26,7 +27,7 @@ public class GUIResetCommand implements CommandExecutor {
         if(src instanceof Player){
             PacketService service = InversionOfControl.get().build(PacketService.class);
             Player player = (Player) src;
-            service.sendPacketToPlayer(player,new PacketGUI.Delete());
+            service.sendPacketToPlayer(player,new Delete());
             return CommandResult.success();
         }else{
             return null;
