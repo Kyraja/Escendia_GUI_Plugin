@@ -158,6 +158,63 @@ public class FormStyle implements FactoryElement<FormStyle> {
         return verticalAlignment;
     }
 
+    public double getxPosition() {
+        return xPosition;
+    }
+
+    public double getyPosition() {
+        return yPosition;
+    }
+
+    public int getBackgroundColorRed() {
+        return backgroundColorRed;
+    }
+
+    public int getBackgroundColorGreen() {
+        return backgroundColorGreen;
+    }
+
+    public int getBackgroundColorBlue() {
+        return backgroundColorBlue;
+    }
+
+    public int getBackgroundColorAlpha() {
+        return backgroundColorAlpha;
+    }
+
+    public int getFontColorRed() {
+        return fontColorRed;
+    }
+
+    public int getFontColorGreen() {
+        return fontColorGreen;
+    }
+
+    public int getFontColorBlue() {
+        return fontColorBlue;
+    }
+
+    public int getFontColorAlpha() {
+        return fontColorAlpha;
+    }
+
+    public int getCursorColorRed() {
+        return cursorColorRed;
+    }
+
+    public int getCursorColorGreen() {
+        return cursorColorGreen;
+    }
+
+    public int getCursorColorBlue() {
+        return cursorColorBlue;
+    }
+
+    public int getCursorColorAlpha() {
+        return cursorColorAlpha;
+    }
+
+
     /*
     -------- Setter Methods --------
      */
@@ -189,6 +246,8 @@ public class FormStyle implements FactoryElement<FormStyle> {
     public void setWidth(double width) {
         this.width = width;
     }
+
+
 
     public void setBackgroundColor(int r, int g, int b, int a){
         this.backgroundColorRed = r;
@@ -253,6 +312,82 @@ public class FormStyle implements FactoryElement<FormStyle> {
      */
     public void setVerticalAlignment(Alignment verticalAlignment) {
         this.verticalAlignment = verticalAlignment;
+    }
+
+    public void setxPositionPercentage(double xPositionPercentage) {
+        this.xPositionPercentage = xPositionPercentage;
+    }
+
+    public void setyPositionPercentage(double yPositionPercentage) {
+        this.yPositionPercentage = yPositionPercentage;
+    }
+
+    public void setxOffset(double xOffset) {
+        this.xOffset = xOffset;
+    }
+
+    public void setyOffset(double yOffset) {
+        this.yOffset = yOffset;
+    }
+
+    public void setHeightPercentage(double heightPercentage) {
+        this.heightPercentage = heightPercentage;
+    }
+
+    public void setWidthPercentage(double widthPercentage) {
+        this.widthPercentage = widthPercentage;
+    }
+
+    public void setBackgroundColorRed(int backgroundColorRed) {
+        this.backgroundColorRed = backgroundColorRed;
+    }
+
+    public void setBackgroundColorGreen(int backgroundColorGreen) {
+        this.backgroundColorGreen = backgroundColorGreen;
+    }
+
+    public void setBackgroundColorBlue(int backgroundColorBlue) {
+        this.backgroundColorBlue = backgroundColorBlue;
+    }
+
+    public void setBackgroundColorAlpha(int backgroundColorAlpha) {
+        this.backgroundColorAlpha = backgroundColorAlpha;
+    }
+
+    public void setFontSize(double fontSize) {
+        this.fontSize = fontSize;
+    }
+
+    public void setFontColorRed(int fontColorRed) {
+        this.fontColorRed = fontColorRed;
+    }
+
+    public void setFontColorGreen(int fontColorGreen) {
+        this.fontColorGreen = fontColorGreen;
+    }
+
+    public void setFontColorBlue(int fontColorBlue) {
+        this.fontColorBlue = fontColorBlue;
+    }
+
+    public void setFontColorAlpha(int fontColorAlpha) {
+        this.fontColorAlpha = fontColorAlpha;
+    }
+
+    public void setCursorColorRed(int cursorColorRed) {
+        this.cursorColorRed = cursorColorRed;
+    }
+
+    public void setCursorColorGreen(int cursorColorGreen) {
+        this.cursorColorGreen = cursorColorGreen;
+    }
+
+    public void setCursorColorBlue(int cursorColorBlue) {
+        this.cursorColorBlue = cursorColorBlue;
+    }
+
+    public void setCursorColorAlpha(int cursorColorAlpha) {
+        this.cursorColorAlpha = cursorColorAlpha;
     }
 
     @Override

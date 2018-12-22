@@ -5,10 +5,12 @@ import com.google.common.io.CharStreams;
 import net.escendia.gui.model.components.Element;
 import net.escendia.gui.model.gui.GeneralGUIData;
 import net.escendia.gui.model.logger.EscendiaLogger;
+import net.escendia.gui.model.network.out.gui.Create;
 import net.escendia.gui.view.EscendiaGui;
 import net.escendia.ioc.Inject;
 import net.escendia.ioc.InversionOfControl;
 import net.escendia.ioc.Singleton;
+import org.spongepowered.api.Sponge;
 
 import java.io.File;
 import java.io.InputStream;
@@ -90,6 +92,7 @@ public class GUIService {
     public EscendiaGui createGUI(UUID uuid) {
         EscendiaGui escendiaGUI = new EscendiaGui(uuid);
         this.guiMap.put(uuid, escendiaGUI);
+        playerService.getUserConnect(Sponge.getServer().getPlayer(uuid).get()).send(new Create());
         return escendiaGUI;
     }
 
@@ -125,10 +128,11 @@ public class GUIService {
      */
     public Element createElementByJsonFile(String jsonFile, boolean fresh){
         try {
-            InputStream stream = InversionOfControl.get().build(FileService.class).getFile("testgui.json");
+            InputStream stream = InversionOfControl.get().build(FileService.class).getFile(jsonFile);
             String json = CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8));
             Element element = new Element().fromJson(json);
             if(fresh)element.setElementUUID(UUID.randomUUID());
+            return element;
         } catch (Exception e) {
             logger.error("Could not read/create Element from File! " + jsonFile, e);
         }

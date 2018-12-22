@@ -94,9 +94,10 @@ public class UserConnection implements Runnable{
                     logger.info("Added Connection first read: " + body.get(GlobalScope.UUID).getAsString());
 
                     add(body.get(GlobalScope.UUID).getAsString());
-                }else{
-                    InversionOfControl.get().build(PacketService.class).receivePacketFromPlayer(this.getUuid(), jsonObject);
                 }
+
+                InversionOfControl.get().build(PacketService.class).receivePacketFromPlayer(this.getUuid(), jsonObject);
+
             }
         }catch(Exception e){
             remove();
