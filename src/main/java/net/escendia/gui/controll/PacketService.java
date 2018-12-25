@@ -98,7 +98,7 @@ public class PacketService{
             case GlobalScope.PACKET_CLIENT_EVENT_POST_ONFOCUS:
                 new OnFocus(uuid, body);
                 break;
-            case GlobalScope.PACKET_CLIENT_EVENT_POST_ONBLUR:
+            case GlobalScope.PACKET_CLIENT_EVENT_POST_ONHOVER:
                 new OnBlur(uuid, body);
                 break;
             default:
