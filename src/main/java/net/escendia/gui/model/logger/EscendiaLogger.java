@@ -9,7 +9,7 @@ import java.util.Date;
 @Singleton
 public class EscendiaLogger {
 
-    private Level level = Level.TRACE;
+    private Level level = Level.INFO;
     private PrintWriter stream = null;
     private String tag = "";
 

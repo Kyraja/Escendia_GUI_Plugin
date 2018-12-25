@@ -67,15 +67,15 @@ public class Element implements FactoryElement<Element> {
 
     /**
      * Get a children element (recursive)
-     * @param elementUUID
+     * @param element
      * @return
      */
-    public Element getChildrenElement(UUID elementUUID) {
-        for(UUID element : childrenElements.keySet()){
-            if(element == elementUUID){
-                return childrenElements.get(element);
+    public Element getChildrenElement(UUID element) {
+        for(UUID elementUUID : childrenElements.keySet()){
+            if(elementUUID.equals(element)){
+                return childrenElements.get(elementUUID);
             }else{
-                Element childElement = childrenElements.get(element).getChildrenElement(elementUUID);
+                Element childElement = childrenElements.get(elementUUID).getChildrenElement(element);
                 if(childElement!=null)return childElement;
             }
         }
@@ -88,12 +88,12 @@ public class Element implements FactoryElement<Element> {
      */
     public void updateChildrenElement(Element element){
         for(UUID elementUUID : childrenElements.keySet()) {
-            if (element.getElementUUID() == elementUUID) {
-                childrenElements.remove(element);
+            if (element.getElementUUID().equals(elementUUID)) {
+                childrenElements.remove(elementUUID);
                 childrenElements.put(element.getElementUUID(), element);
                 return;
             } else {
-                childrenElements.get(element).updateChildrenElement(element);
+                childrenElements.get(elementUUID).updateChildrenElement(element);
             }
         }
     }
@@ -104,11 +104,11 @@ public class Element implements FactoryElement<Element> {
      */
     public void removeChildrenElement(Element element) {
         for(UUID elementUUID : childrenElements.keySet()) {
-            if (element.getElementUUID() == elementUUID) {
-                childrenElements.remove(element);
+            if (element.getElementUUID().equals(elementUUID)) {
+                childrenElements.remove(elementUUID);
                 return;
             } else {
-                childrenElements.get(element).removeChildrenElement(element);
+                childrenElements.get(elementUUID).removeChildrenElement(element);
             }
         }
     }
@@ -146,7 +146,7 @@ public class Element implements FactoryElement<Element> {
 
     @Override
     public JsonElement toJson() {
-        return new GsonBuilder().create().toJsonTree(this);
+        return new GsonBuilder().serializeSpecialFloatingPointValues().create().toJsonTree(this);
     }
 
     @Override

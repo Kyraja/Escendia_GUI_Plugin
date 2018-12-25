@@ -27,12 +27,7 @@ public class Progressbar extends ElementValuable<Double> {
     }
 
     public void setBarPercentage(double barPercentage) {
-        if(barPercentage < 0)
-            this.barPercentage = 0;
-        else if(barPercentage > 1)
-            this.barPercentage = 1;
-        else
-            this.barPercentage = barPercentage;
+         this.barPercentage = barPercentage;
     }
 
     @Override

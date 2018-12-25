@@ -86,7 +86,6 @@ public class UserConnection implements Runnable{
 
             while(true){
                 String message = in.readLine();
-                if(message!="")logger.info("ReadMessage: " + message);
                 JsonObject jsonObject = parser.parse(message).getAsJsonObject();
 
                 if(getUuid()==null){

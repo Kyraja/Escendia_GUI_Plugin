@@ -8,10 +8,10 @@ import java.awt.*;
 
 public class Border implements FactoryElement<Border> {
 
-    private double top;
-    private double left;
-    private double right;
-    private double bottom;
+    private double top = 0;
+    private double left= 0;
+    private double right= 0;
+    private double bottom= 0;
 
     private int topColorRed = 0;
     private int topColorGreen = 0;

@@ -16,12 +16,16 @@ public class GlobalScope {
 
     public static final int PACKET_CLIENT_CONNECTION_INIT = 10000001;
     public static final int PACKET_CLIENT_CONNECTION_CLOSE = 10000002;
-    public static final int PACKET_CLIENT_GUI_CREATE = 10000003;
-    public static final int PACKET_CLIENT_GUI_DELETE = 10000004;
-    public static final int PACKET_CLIENT_COMPONENT_ADD = 10000005;
-    public static final int PACKET_CLIENT_COMPONENT_REMOVE = 10000006;
-    public static final int PACKET_CLIENT_COMPONENT_UPDATE = 10000007;
-    public static final int PACKET_CLIENT_EVENT_ADD = 10000008;
+    public static final int PACKET_CLIENT_CONNECTION_UPDATE = 10000003;
+
+    public static final int PACKET_CLIENT_GUI_CREATE = 10000050;
+    public static final int PACKET_CLIENT_GUI_DELETE = 10000051;
+    public static final int PACKET_CLIENT_GUI_ADDIMAGE = 10000052;
+
+
+    public static final int PACKET_CLIENT_COMPONENT_ADD = 10000200;
+    public static final int PACKET_CLIENT_COMPONENT_REMOVE = 1000201;
+    public static final int PACKET_CLIENT_COMPONENT_UPDATE = 10000202;
 
     public static final int PACKET_CLIENT_EVENT_POST_ONCLICK = 10000100;
     public static final int PACKET_CLIENT_EVENT_POST_ONMOUSELEAVE = 10000101;
@@ -36,19 +40,26 @@ public class GlobalScope {
     public static final int PACKET_CLIENT_EVENT_POST_ONREMOVE = 10000110;
     public static final int PACKET_CLIENT_EVENT_POST_ONVALUECHANGE = 10000111;
     public static final int PACKET_CLIENT_EVENT_POST_ONFOCUS = 10000112;
-    public static final int PACKET_CLIENT_EVENT_POST_ONBLUR =10000113;
+    public static final int PACKET_CLIENT_EVENT_POST_ONHOVER =10000113;
 
 
     public static final int PACKET_SERVER_CONNECTION_INIT = 50000001;
     public static final int PACKET_SERVER_CONNECTION_CLOSE = 50000002;
-    public static final int PACKET_SERVER_GUI_CREATE = 50000003;
-    public static final int PACKET_SERVER_GUI_DELETE = 50000004;
-    public static final int PACKET_SERVER_COMPONENT_ADD = 50000005;
-    public static final int PACKET_SERVER_COMPONENT_REMOVE = 50000006;
-    public static final int PACKET_SERVER_COMPONENT_UPDATE = 50000007;
-    public static final int PACKET_SERVER_EVENT_ADD = 50000008;
-    public static final int PACKET_SERVER_EVENT_POST = 50000009;
+    public static final int PACKET_SERVER_CONNECTION_UPDATE = 50000003;
 
+    public static final int PACKET_SERVER_GUI_CREATE = 50000050;
+    public static final int PACKET_SERVER_GUI_DELETE = 50000051;
+    public static final int PACKET_SERVER_GUI_ADDIMAGE = 50000052;
+
+
+    public static final int PACKET_SERVER_COMPONENT_ADD = 50000200;
+    public static final int PACKET_SERVER_COMPONENT_REMOVE = 5000201;
+    public static final int PACKET_SERVER_COMPONENT_UPDATE = 50000202;
+
+
+
+    public static final int PACKET_SERVER_EVENT_ADD = 50000098;
+    public static final int PACKET_SERVER_EVENT_POST = 50000099;
     public static final int PACKET_SERVER_EVENT_POST_ONCLICK = 50000100;
     public static final int PACKET_SERVER_EVENT_POST_ONMOUSELEAVE = 50000101;
     public static final int PACKET_SERVER_EVENT_POST_ONMOUSEENTER = 50000102;
@@ -76,6 +87,9 @@ public class GlobalScope {
     public static final String EVENT = "event";
 
     public static final String INITDATA = "initdata";
+    public static final String IMAGE = "image";
+    public static final String IMAGE_NAME = "imagename";
+    public static final String FONT = "font";
 
     public static final String BUTTON = "button";
     public static final String KEY_PRESSED_LIST = "keypressedlist";

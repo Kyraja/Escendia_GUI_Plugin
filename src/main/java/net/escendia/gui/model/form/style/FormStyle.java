@@ -29,7 +29,7 @@ public class FormStyle implements FactoryElement<FormStyle> {
     private int backgroundColorBlue = 153;
     private int backgroundColorAlpha = 255;
 
-    private String backgroundImage;
+    private String backgroundImage = "";
 
     //-- For Text Elements --
     private double fontSize = 1.0;
@@ -280,7 +280,7 @@ public class FormStyle implements FactoryElement<FormStyle> {
     }
     public void setFontColor(Color fontColor) {
 
-        setBackgroundColor(fontColor.getRed(), fontColor.getGreen(), fontColor.getBlue(), fontColor.getAlpha());
+        setFontColor(fontColor.getRed(), fontColor.getGreen(), fontColor.getBlue(), fontColor.getAlpha());
     }
 
     public void setAlignment(Alignment alignment) {
@@ -295,7 +295,7 @@ public class FormStyle implements FactoryElement<FormStyle> {
     }
 
     public void setCursorColor(Color cursorColor){
-        setBackgroundColor(cursorColor.getRed(), cursorColor.getGreen(), cursorColor.getBlue(), cursorColor.getAlpha());
+        setCursorColor(cursorColor.getRed(), cursorColor.getGreen(), cursorColor.getBlue(), cursorColor.getAlpha());
     }
 
     /**

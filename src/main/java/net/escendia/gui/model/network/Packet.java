@@ -10,8 +10,6 @@ import org.spongepowered.api.network.Message;
 public class Packet implements Message {
 
 
-    private EscendiaLogger logger;
-
     private JsonObject jsonObject;
 
     public Packet(JsonObject jsonObject){
@@ -33,19 +31,12 @@ public class Packet implements Message {
         else {
             message = buf.readUTF();
         }
-//        InversionOfControl.get().build(EscendiaLogger.class).info(""+message);
         jsonObject = new JsonParser().parse(message).getAsJsonObject();
 
     }
 
     @Override
     public void writeTo(ChannelBuf buf) {
-
-//        if(buf!=null){
-//            for(byte b : jsonObject.toString().getBytes()){
-//                buf.writeByte(b);
-//            }
-//        }
         buf.writeUTF(jsonObject.toString());
     }
 }

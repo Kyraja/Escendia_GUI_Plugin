@@ -11,6 +11,7 @@ import net.escendia.ioc.InversionOfControl;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * EscendiaGui the open a gui to work with
@@ -19,7 +20,7 @@ public class EscendiaGui {
 
     private final UUID guiUUID;
     private final UUID playerUUID;
-    private HashMap<UUID, Element> elementList;
+    private ConcurrentHashMap<UUID, Element> elementList;
     private Element hoveredElement;
     private Element focusedElement;
 
@@ -28,7 +29,7 @@ public class EscendiaGui {
         super();
         this.guiUUID =  UUID.fromString("00000000-0000-0000-0000-000000000000");
         this.playerUUID = playerUUID;
-        this.elementList = new HashMap<>();
+        this.elementList = new ConcurrentHashMap<>();
     }
 
 
@@ -42,7 +43,7 @@ public class EscendiaGui {
     }
 
 
-    public HashMap<UUID, Element> getElementList() {
+    public ConcurrentHashMap<UUID, Element> getElementList() {
         return elementList;
     }
 
@@ -110,16 +111,15 @@ public class EscendiaGui {
 
     /**
      * Get an element from the elementList or the childrenelement of an element
-     * @param elementUUID
+     * @param element
      * @return
      */
-    public Element getElement(UUID elementUUID) {
-
-        for(UUID element : elementList.keySet()){
-            if(element == elementUUID){
-                return elementList.get(element);
+    public Element getElement(UUID element) {
+        for(UUID elementUUID : elementList.keySet()){
+            if(element.equals(elementUUID)){
+                return elementList.get(elementUUID);
             }else{
-                Element childElement = elementList.get(element).getChildrenElement(elementUUID);
+                Element childElement = elementList.get(elementUUID).getChildrenElement(element);
                 if(childElement!=null)return childElement;
             }
         }
@@ -132,11 +132,11 @@ public class EscendiaGui {
      */
     public void updateElement(Element element){
         for(UUID elementUUID : elementList.keySet()){
-            if(element.getElementUUID() == elementUUID){
-                elementList.remove(element);
+            if(element.getElementUUID().equals(elementUUID)){
+                elementList.remove(elementUUID);
                 elementList.put(element.getElementUUID(), element);
             }else{
-               elementList.get(element).updateChildrenElement(element);
+               elementList.get(elementUUID).updateChildrenElement(element);
             }
         }
     }
@@ -148,10 +148,10 @@ public class EscendiaGui {
      */
     public void removeElement(Element element){
         for(UUID elementUUID : elementList.keySet()){
-            if(element.getElementUUID() == elementUUID){
+            if(element.getElementUUID().equals(elementUUID)){
                 elementList.remove(element);
             }else{
-                elementList.get(element).removeChildrenElement(element);
+                elementList.get(elementUUID).removeChildrenElement(element);
             }
         }
     }

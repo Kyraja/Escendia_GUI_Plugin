@@ -1,10 +1,7 @@
 package net.escendia.gui;
 
 
-import net.escendia.gui.controll.FileService;
-import net.escendia.gui.controll.GUIService;
-import net.escendia.gui.controll.PacketService;
-import net.escendia.gui.controll.PlayerService;
+import net.escendia.gui.controll.*;
 import net.escendia.gui.controll.commands.GUIReloadCommand;
 import net.escendia.gui.controll.commands.GUIResetCommand;
 import net.escendia.gui.controll.commands.GUITestCommand;
@@ -56,6 +53,8 @@ public class EscendiaGUIPlugin {
                 InversionOfControl.get().registerDependency(this);
 
                 InversionOfControl.get().registerInterfaceImplementation(FileService.class, new FileService());
+                InversionOfControl.get().registerInterfaceImplementation(ImageService.class, new ImageService());
+                InversionOfControl.get().build(ImageService.class).createDefaultImages();
                 InversionOfControl.get().registerInterfaceImplementation(PlayerService.class, new PlayerService());
                 InversionOfControl.get().registerInterfaceImplementation(PacketService.class, new PacketService());
                 InversionOfControl.get().registerInterfaceImplementation(GUIService.class, new GUIService());
@@ -94,7 +93,7 @@ public class EscendiaGUIPlugin {
          * Default config
          * @return
          */
-        public Path getDefaultConfig() {
+        public  Path getDefaultConfig() {
                 return defaultConfig;
         }
 

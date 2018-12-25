@@ -8,6 +8,7 @@ import net.escendia.ioc.Singleton;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,13 +20,16 @@ import java.util.ArrayList;
 public class FileService {
 
     private final ArrayList<String> mimeTypesAllowed;
+    protected final ArrayList<String> urlLoaded;
 
-    public FileService() {
+    public FileService(){
         this.mimeTypesAllowed = new ArrayList<>();
+        this.urlLoaded = new ArrayList<>();
     }
 
     public FileService(ArrayList<String> mimeTypesAllowed) {
         this.mimeTypesAllowed = mimeTypesAllowed;
+        this.urlLoaded = new ArrayList<>();
     }
 
 
@@ -87,6 +91,33 @@ public class FileService {
         return null;
     }
 
+
+
+    private File getFileAsFile(String fileName) throws IOException {
+        new File(getConfigDir()+ File.separator + fileName).mkdirs();
+        File file = new File(getConfigDir()+ File.separator + fileName);
+        if(!file.exists())file.createNewFile();
+        return file;
+    }
+
+    private void writeDataToFile(String fileName, String content) throws IOException {
+        File file = getFileAsFile(fileName);
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath(), true), "UTF-8"));
+        writer.write(content);
+        writer.newLine();
+        writer.flush();
+        writer.close();
+    }
+
+    public void writeStringToFile(String filename, String content){
+        try {
+            writeDataToFile(filename, content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private String generateFileName(String url) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
         messageDigest.update(url.getBytes());
@@ -101,9 +132,9 @@ public class FileService {
 
     public String getConfigDir() {
         String path = InversionOfControl.get().build(EscendiaGUIPlugin.class).getDefaultConfig().getParent().toString();
-        File tempdir = new File(path + File.separator + InversionOfControl.get().build(EscendiaGUIPlugin.class).getPluginID());
-        if(!tempdir.exists())tempdir.mkdirs();
-        return tempdir.getAbsolutePath();
+        File tmpdir = new File(path + File.separator + InversionOfControl.get().build(EscendiaGUIPlugin.class).getPluginID());
+        if(tmpdir.isDirectory() && !tmpdir.exists())tmpdir.mkdirs();
+        return tmpdir.getAbsolutePath();
     }
 
     public void writeFile(String filePath, String textToWrite) {

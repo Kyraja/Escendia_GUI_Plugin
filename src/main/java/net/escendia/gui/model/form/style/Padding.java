@@ -6,10 +6,10 @@ import net.escendia.gui.model.factories.FactoryElement;
 
 public class Padding implements FactoryElement<Padding> {
 
-    private double top;
-    private double left;
-    private double right;
-    private double bottom;
+    private double top= 0;
+    private double left= 0;
+    private double right= 0;
+    private double bottom= 0;
 
     public Padding(double top, double left, double right, double bottom){
         this.top = top;
