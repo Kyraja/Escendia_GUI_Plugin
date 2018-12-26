@@ -54,51 +54,34 @@ public class ImageService extends FileService {
         images.put(name.toLowerCase(), image);
     }
 
-    public void addImageData(ImageData imageData){
-        this.imagesData.add(imageData);
-    }
-
     public Image getImage(String name){
-        if(imagesData.size()>0)generateImages();
         return images.get(name.toLowerCase());
     }
 
-    public void generateImages(){
-        for(ImageData imageData : imagesData) {
-            if (imageData.getExtension().endsWith("jpg")) {
-                try {
-                    Texture texture = TextureLoader.getTexture("JPG", new ByteArrayInputStream(imageData.frames.get(0).bytes));
-                    addImage(imageData.getName(), new StaticImage(texture));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else if (imageData.getExtension().endsWith("png")) {
-                try {
-                    Texture texture = TextureLoader.getTexture("PNG", new ByteArrayInputStream(imageData.frames.get(0).bytes));
-                    addImage(imageData.getName(), new StaticImage(texture));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else if (imageData.getExtension().endsWith("gif")) {
-                try {
-                    AnimatedImage gifImage = new AnimatedImage();
-
-                    for (int i = 0; i < imageData.frames.size(); i++) {
-                        ImageData.Frame frame = imageData.frames.get(i);
-
-                        Texture texture = TextureLoader.getTexture("GIF", new ByteArrayInputStream(frame.bytes));
-                        gifImage.addFrame(new Frame(frame.time, texture));
-                    }
-
-                    addImage(imageData.getName(), gifImage);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-        logger.debug("generateImages() " + images);
-        imagesData.clear();
-    }
+//    public void generateImages(){
+//        for(ImageData imageData : imagesData) {
+//            if (imageData.getExtension().endsWith("jpg")) {
+//                addImage(imageData.getName(), new StaticImage(imageData));
+//            } else if (imageData.getExtension().endsWith("png")) {
+//                addImage(imageData.getName(), new StaticImage(imageData));
+//            } else if (imageData.getExtension().endsWith("gif")) {
+//                try {
+//                    AnimatedImage gifImage = new AnimatedImage();
+//
+//                    for (int i = 0; i < imageData.frames.size(); i++) {
+//                        ImageData.Frame frame = imageData.frames.get(i);
+//                        gifImage.addFrame(new Frame(frame.time, frame.bytes));
+//                    }
+//
+//                    addImage(imageData.getName(), gifImage);
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//        }
+//        logger.debug("generateImages() " + images);
+//        imagesData.clear();
+//    }
 
 
     public void createImage(final String image){
@@ -121,31 +104,9 @@ public class ImageService extends FileService {
                             baos.write(b);
 
                         if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
-                            ImageData imageData = new ImageData(extension, name);
-                            imageData.frames.add(new ImageData.Frame(0, baos.toByteArray()));
-
-                            InversionOfControl.get().build(ImageService.class).addImageData(imageData);
-
+                            InversionOfControl.get().build(ImageService.class).addImage(name, new StaticImage(name, baos.toByteArray()));
                         } else if (extension.equalsIgnoreCase("gif")) {
-                            try {
-                                ImageData imageData = new ImageData(extension, name);
-                                GifDecoder.GifImage gifImage = GifDecoder.read(baos.toByteArray());
-
-                                for (b = 0; b < gifImage.getFrameCount(); b++) {
-                                    BufferedImage bufferedImage = gifImage.getFrame(b);
-
-                                    ByteArrayOutputStream baosImage = new ByteArrayOutputStream();
-                                    ImageIO.write(bufferedImage, "GIF", baosImage);
-
-                                    imageData.frames.add(new ImageData.Frame(gifImage.getDelay(b) * 10, baosImage.toByteArray()));
-
-                                    baosImage.close();
-                                }
-
-                                InversionOfControl.get().build(ImageService.class).addImageData(imageData);
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                            }
+                            InversionOfControl.get().build(ImageService.class).addImage(name, new AnimatedImage(name, baos.toByteArray()));
                         }
 
                         baos.close();
@@ -157,7 +118,7 @@ public class ImageService extends FileService {
                 }
     }
 
-    private static class ImageData{
+    public static class ImageData{
 
         private final String extension;
         private final String name;

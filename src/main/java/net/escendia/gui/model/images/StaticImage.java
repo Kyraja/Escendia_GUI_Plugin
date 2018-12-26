@@ -1,17 +1,15 @@
 package net.escendia.gui.model.images;
 
+import net.escendia.gui.controll.ImageService;
 import org.newdawn.slick.opengl.Texture;
 
+/**
+ * Static image data
+ */
 public class StaticImage extends Image {
 
-    private final Texture texture;
-
-    public StaticImage(Texture texture) {
-        this.texture = texture;
+    public StaticImage(String imageName, byte[] imageData) {
+        super(imageName, imageData);
     }
 
-    @Override
-    public Texture getTexture() {
-        return texture;
-    }
 }

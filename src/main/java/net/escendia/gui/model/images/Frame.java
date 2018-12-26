@@ -5,18 +5,19 @@ import org.newdawn.slick.opengl.Texture;
 public class Frame {
 
     private final long time;
-    private final Texture texture;
+    private final byte[] bytes;
 
-    public Frame(long time, Texture texture) {
+    public Frame(long time, byte[] bytes) {
         this.time = time;
-        this.texture = texture;
+        this.bytes = bytes;
     }
+
 
     public long getTime() {
         return time;
     }
 
-    public Texture getTexture() {
-        return texture;
+    public byte[] getBytes() {
+        return bytes;
     }
 }

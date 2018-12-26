@@ -38,11 +38,12 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     embed 'com.github.Kyraja:Escendia_IOC:0.1.0'
     embed 'org.slick2d:slick2d-core:1.0.1'
+    embed 'org.lwjgl.lwjgl:lwjgl:2.9.1'
 
     compile 'org.slick2d:slick2d-core:1.0.1'
     compile 'com.github.Kyraja:Escendia_IOC:0.1.0'
     compile 'org.spongepowered:spongeapi:7.1.0-20180104.092557-3'
-
+    compile 'org.lwjgl.lwjgl:lwjgl:2.9.1'
 }
 
 
