@@ -6,10 +6,12 @@ import net.escendia.gui.GlobalScope;
 import net.escendia.gui.controll.GUIService;
 import net.escendia.gui.controll.PacketService;
 import net.escendia.gui.controll.PlayerService;
+import net.escendia.gui.model.listeners.impl.InitEvent;
 import net.escendia.gui.model.logger.EscendiaLogger;
 import net.escendia.gui.model.network.out.PacketOut;
 import net.escendia.gui.model.network.out.connection.Init;
 import net.escendia.ioc.InversionOfControl;
+import org.spongepowered.api.Sponge;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -83,19 +85,21 @@ public class UserConnection implements Runnable{
         try{
 
             JsonParser parser = new JsonParser();
-
+            boolean firstConnection = false;
             while(true){
                 String message = in.readLine();
                 JsonObject jsonObject = parser.parse(message).getAsJsonObject();
 
                 if(getUuid()==null){
+                    firstConnection = true;
                     JsonObject body = jsonObject.getAsJsonObject(GlobalScope.BODY);
                     logger.info("Added Connection first read: " + body.get(GlobalScope.UUID).getAsString());
 
                     add(body.get(GlobalScope.UUID).getAsString());
+                    Sponge.getEventManager().post(new InitEvent(UUID.fromString(body.get(GlobalScope.UUID).getAsString())));
                 }
 
-                InversionOfControl.get().build(PacketService.class).receivePacketFromPlayer(this.getUuid(), jsonObject);
+                if(!firstConnection)InversionOfControl.get().build(PacketService.class).receivePacketFromPlayer(this.getUuid(), jsonObject);
 
             }
         }catch(Exception e){
